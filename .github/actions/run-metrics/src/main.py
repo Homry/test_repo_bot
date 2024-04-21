@@ -22,7 +22,7 @@ if __name__ == "__main__":
             continue
 
         for file in el["files"]:
-            if "main.py" not in file["path"]:
+            if "model.py" not in file["path"]:
                 continue
 
             path = "pull-request-data/"+file["path"]
