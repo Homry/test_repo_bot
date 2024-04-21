@@ -18,11 +18,12 @@ jobs:
           PRIVATE_SSH_KEY: "${{ secrets.PRIVATE_SSH_KEY }}"
       - uses: actions/checkout@v4.1.1
       - name: Run metrics
+        id: result
         uses: ./.github/actions/run-metrics
         with:
           correctPullRequests: "${{ steps.check.outputs.correctPullRequests }}"
       - name: Comment pull-requests
         uses: ./.github/actions/comment_writer
         with:
-          correctPullRequests: "${{ steps.check.outputs.correctPullRequests }}"
+          correctPullRequests: "${{ steps.result.outputs.correctPullRequests }}"
       - run: tail -f /dev/null

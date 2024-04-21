@@ -6,6 +6,9 @@ from dataset import DatasetInterface
 import json
 import os
 
+def write_result(result):
+    with open(os.path.abspath(os.environ["GITHUB_OUTPUT"]), "a") as output_file:
+        output_file.write(f"correctPullRequests={result}")
 
 if __name__ == "__main__":
     # Instantiate ModelEvaluator
@@ -49,3 +52,5 @@ if __name__ == "__main__":
             plt.legend(loc='lower right')
             plt.grid(True)  # Add gridlines
             plt.show()
+
+    write_result(json.dumps(parsed_json))
