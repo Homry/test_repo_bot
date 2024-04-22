@@ -1,5 +1,5 @@
 from matplotlib import pyplot as plt
-from Evaluator import ModelEvaluator
+from Evaluator import ModelEvaluator, resize
 from dataset import DatasetInterface
 import json
 import os
@@ -19,7 +19,7 @@ class RunMetrics():
 
     def write_result(self, result):
         with open(os.path.abspath(os.environ["GITHUB_OUTPUT"]), "a") as output_file:
-            output_file.write(f"correctPullRequests={result}")
+            output_file.write(f"correctPullRequests={json.dumps(self.data)}")
 
     def main(self):
         for i in range(len(self.data)):
@@ -34,6 +34,7 @@ def run_checks():
     run_metrics = RunMetrics()
 
     parsed_json =  json.loads(os.environ['INPUT_CORRECTPULLREQUESTS'])
+    resize()
 
     for index,el in enumerate(parsed_json):
         if not el["correct"]:

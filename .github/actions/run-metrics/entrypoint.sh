@@ -1,55 +1,17 @@
 #!/bin/bash
 
-# # Функция для обхода папок
-# traverse() {
-#     for file in "$1"/*; do
-#       for dir in ${file}/*; do
-#       # Проверяем, является ли текущая папка директорией
-#         if [ -d "$dir" ]; then
-#         # Заходим в папку src и скачиваем веса из файла weights_link.txt, если он там есть
-#           if [ -f "$dir/src/weights_link.txt" ]; then
-#             gdown --fuzzy $(cat ${dir}/src/weights_link.txt) -O ${dir}/src/weights.pth
-#             echo "${dir}"
-#           fi
-#         fi
-#       done
-#     done
-# }
-# traverse() {
-#     for file in "$1"/*; do
-#       echo ${file}
-#       for dir in ${file}/*; do
-#         echo ${dir}
-#       # Проверяем, является ли текущая папка директорией
-#         if [ -d "$dir" ]; then
-#           echo "hi from if"
-#         # Заходим в папку src и скачиваем веса из файла weights_link.txt, если он там есть
-#           if [ -f "$dir/src/weights_link.txt" ]; then
-#             gdown --fuzzy $(cat ${dir}/src/weights_link.txt) -O ${dir}/src/weights.pth
-#           fi
-#         fi
-#       done
-#     done
-# }
+# Функция для обхода папок
 traverse() {
-    for file in `find "$1" -type d -name "*"`; do
-      echo ${file}
-      for dir in `find "$file" -type d -name "*"`; do
-        echo ${dir}
-      # Проверяем, является ли текущая папка директорией
-        if [ -d "$dir" ]; then
-          echo "hi from if"
+    for dir in `find "$1"  -type d -name src`; do
         # Заходим в папку src и скачиваем веса из файла weights_link.txt, если он там есть
-          if [ -f "$dir/src/weights_link.txt" ]; then
-            gdown --fuzzy $(cat ${dir}/src/weights_link.txt) -O ${dir}/src/weights.pth
+          if [ -f "$dir/weights_link.txt" ]; then
+            gdown --fuzzy $(cat ${dir}/weights_link.txt) -O ${dir}/weights.pth
           fi
-        fi
-      done
     done
 }
 
 # Вызываем функцию для обхода и поиска файла
-traverse $GITHUB_WORKSPACE/pull-requests-data
+traverse $GITHUB_WORKSPACE/pull-request-data
 
 mkdir $GITHUB_WORKSPACE/$ACTION_WORKSPACE/src/action
 mkdir $GITHUB_WORKSPACE/$ACTION_WORKSPACE/src/action/datasets
@@ -59,5 +21,5 @@ cd $GITHUB_WORKSPACE/$ACTION_WORKSPACE/src
 
 cp -r $GITHUB_WORKSPACE/pull-request-data . 
 
-# python3 main.py
-tail -f /dev/null
+python3 main.py
+# tail -f /dev/null
