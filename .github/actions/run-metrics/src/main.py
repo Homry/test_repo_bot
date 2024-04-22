@@ -6,6 +6,8 @@ from dataset import DatasetInterface
 import json
 import os
 
+LAB_TAGS_LIST = ["lab1","lab2","lab3","cw"]
+
 def write_result(result):
     with open(os.path.abspath(os.environ["GITHUB_OUTPUT"]), "a") as output_file:
         output_file.write(f"correctPullRequests={result}")
@@ -17,8 +19,23 @@ if __name__ == "__main__":
     parsed_json =  json.loads(os.environ['INPUT_CORRECTPULLREQUESTS'])
     print(parsed_json)
 
+
     for el in parsed_json:
         if not el["correct"]:
+            continue
+
+
+        if el["lab_tag"] == "lab1":
+            print("checking and processing lab1")
+            
+        elif el["lab_tag"] == "lab2":
+            print("checking and processing lab2")
+
+        elif el["lab_tag"] == "lab3":
+            print("checking and processing lab3")
+
+        else:
+            print("no such lab_tag")
             continue
 
         for file in el["files"]:
