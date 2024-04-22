@@ -45,6 +45,7 @@ def run_checks():
             path = "pull-request-data/"+file["path"]
             path = path.replace("/",".")
             obj = __import__(path[:-3], fromlist=[None])
+            path = path.replace(".","/")
             
             weights_file = path[:-8] + "weights.pth"
             
@@ -55,9 +56,9 @@ def run_checks():
 
             obj.model.load_state_dict(state_dict)
 
-            eva = ModelEvaluator(obj.model, DatasetInterface("./action/datasets/train-scene/train.csv",
-                                                              "./action/datasets/train-scene/train/"),
-                                  64, "./action/datasets/train-scene/train.csv")
+            eva = ModelEvaluator(obj.model, DatasetInterface("./action/datasets/train-scene classification/train.csv",
+                                                              "./action/datasets/train-scene classification/train/"),
+                                  64, "./action/datasets/train-scene classification/train.csv")
 
 
             # Evaluate the model
