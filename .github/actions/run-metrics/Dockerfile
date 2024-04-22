@@ -12,9 +12,10 @@ COPY requirements.txt requirements.txt
 RUN python3 -m pip install -r requirements.txt
 
 # Upgrade pip
-RUN python3 -m pip install --upgrade pip 
-    && pip install gdown \
-    && pip install --upgrade gdown \
+RUN python3 -m pip install --upgrade pip
+
+RUN pip install gdown
+RUN pip install --upgrade gdown
 
 ## Install PyTorch
 #RUN pip3 install tensorrt==8.6.1
@@ -22,9 +23,10 @@ RUN python3 -m pip install --upgrade pip
 # Очистка кэша apt-get
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-#COPY datasets_links /datasets_links
+COPY links /links
 
-#RUN gdown --fuzzy $(cat /datasets_links/lab1_dataset.txt)
+RUN gdown --fuzzy $(cat /links/lab1_dataset_link.txt)
+
 
 # WORKDIR /src
 # COPY ./src ./src

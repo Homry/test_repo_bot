@@ -36,7 +36,6 @@ if __name__ == "__main__":
 
         else:
             print("no such lab_tag")
-            continue
 
         for file in el["files"]:
             if "model.py" not in file["path"]:
