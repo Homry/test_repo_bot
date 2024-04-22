@@ -11,7 +11,7 @@ from torch.utils.data import DataLoader
 import warnings
 
 warnings.filterwarnings('ignore')  # Ignore warnings
-from models.Model import model  # Import the model class
+# from models.Model import model  # Import the model class
 import os
 from PIL import Image
 
