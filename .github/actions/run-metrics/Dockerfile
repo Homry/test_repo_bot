@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y \
     python3.8 \
     python3-pip \
     unzip \
-
     && python3 -m pip install --upgrade pip \
     && python3 -m pip install -r /requirements.txt \
     && apt-get clean && rm -rf /var/lib/apt/lists/* # Очистка кэша apt-get
